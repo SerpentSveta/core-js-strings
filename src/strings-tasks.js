@@ -436,8 +436,11 @@ function getStringFromTemplate(firstName, lastName) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  const regex = /[,!]/g;
+  const regStr = value.replace(regex, '');
+  const words = regStr.split(' ');
+  return words.slice(1).join(' ');
 }
 
 /**
@@ -451,8 +454,9 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  const regex = /[<>]/g;
+  return str.replace(regex, '');
 }
 
 /**
@@ -470,8 +474,14 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  let result = [];
+  if (str.includes(';')) {
+    result = str.split(';');
+  } else {
+    result.push(str);
+  }
+  return result;
 }
 
 /**
@@ -490,8 +500,25 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  let result = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === '?' || str[i] === '!' || str[i] === ' ') {
+      result += str[i];
+    } else {
+      const charCode = str.charCodeAt(i);
+      if (charCode >= 65 && charCode <= 77) {
+        result += String.fromCharCode(charCode + 13);
+      } else if (charCode >= 78 && charCode <= 90) {
+        result += String.fromCharCode(charCode - 13);
+      } else if (charCode >= 97 && charCode <= 109) {
+        result += String.fromCharCode(charCode + 13);
+      } else if (charCode >= 110 && charCode <= 122) {
+        result += String.fromCharCode(charCode - 13);
+      }
+    }
+  }
+  return result;
 }
 
 /**
@@ -518,8 +545,62 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cards = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+  return cards.indexOf(value);
 }
 
 module.exports = {
