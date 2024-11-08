@@ -309,8 +309,15 @@ function containsSubstring(str, substring) {
  *   countVowels('aEiOu') => 5
  *   countVowels('XYZ') => 1
  */
-function countVowels(/* str */) {
-  throw new Error('Not implemented');
+function countVowels(str) {
+  const vowels = 'aeiouyAEIOUY';
+  let sum = 0;
+  for (let i = 0; i < str.length; i += 1) {
+    if (vowels.includes(str[i])) {
+      sum += 1;
+    }
+  }
+  return sum;
 }
 
 /**
@@ -326,8 +333,12 @@ function countVowels(/* str */) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const regex = /[\s.,%,!,?]/g;
+  const regStr = str.replace(regex, '');
+  const lowerStr = regStr.toLowerCase();
+  const reverseStr = lowerStr.split('').reverse().join('');
+  return lowerStr === reverseStr;
 }
 
 /**
@@ -342,8 +353,11 @@ function isPalindrome(/* str */) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  const words = sentence.split(' ');
+  return words.reduce((longest, word) => {
+    return word.length > longest.length ? word : longest;
+  }, '');
 }
 
 /**
@@ -356,8 +370,13 @@ function findLongestWord(/* sentence */) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
-function reverseWords(/* str */) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  const words = str.split(' ');
+
+  const reversedWords = words.map((elem) => {
+    return elem.split('').reverse().join('');
+  });
+  return reversedWords.join(' ');
 }
 
 /**
@@ -371,8 +390,23 @@ function reverseWords(/* str */) {
  *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
  *   invertCase('12345') => '12345'
  */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+function invertCase(str) {
+  const words = str.split(' ');
+
+  const changeWords = words.map((elem) => {
+    const letters = elem.split('');
+    const changeLetter = letters.map((letter) => {
+      let invertedLetter;
+      if (letter !== letter.toUpperCase()) {
+        invertedLetter = letter.toUpperCase();
+      } else {
+        invertedLetter = letter.toLowerCase();
+      }
+      return invertedLetter;
+    });
+    return changeLetter.join('');
+  });
+  return changeWords.join(' ');
 }
 
 /**
@@ -388,8 +422,8 @@ function invertCase(/* str */) {
  *   getStringFromTemplate('John','Doe') => 'Hello, John Doe!'
  *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
